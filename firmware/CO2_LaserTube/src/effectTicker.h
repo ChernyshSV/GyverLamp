@@ -1,0 +1,2 @@
+void changePower();
+void effectsTick();

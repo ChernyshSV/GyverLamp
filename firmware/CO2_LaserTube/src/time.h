@@ -1,0 +1,2 @@
+void timeTick();
+void updTime();
