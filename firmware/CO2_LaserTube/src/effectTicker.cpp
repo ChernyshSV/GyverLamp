@@ -1,6 +1,3 @@
-#include <FastLED.h>
-#include <Settings.h>
-#include <Global.h>
 #include <effects.h>
 
 unsigned int effTimer;

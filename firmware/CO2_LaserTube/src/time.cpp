@@ -1,16 +1,38 @@
-#include <FastLED.h>
-#include <Settings.h>
-#include <WiFiManager.h>
-#include <WiFiUdp.h>
-#include <NTPClient.h>
-#include "timer2Minim.h"
-#include <Global.h>
-#include <runningText.h>
+#include <time.h>
 
+timerMinim timeTimer(1000);
 unsigned char minuteCounter = 0;
+const unsigned char dawnOffsets[] = {5, 10, 15, 20, 25, 30, 40, 50, 60};
+String timeStr = "00:00";
+timerMinim timeStrTimer(120);
 CHSV dawnColor;
+
+unsigned char hrs, mins, secs;
+unsigned char days;
+float thisTime;
+
 void updTime();
 void checkDawn();
+
+void SetTime()
+{
+  // получаем время
+  unsigned char count = 0;
+  while (count < 5)
+  {
+    if (timeClient.update())
+    {
+      hrs = timeClient.getHours();
+      mins = timeClient.getMinutes();
+      secs = timeClient.getSeconds();
+      days = timeClient.getDay();
+      break;
+    }
+    count++;
+    delay(500);
+  }
+  updTime();
+}
 
 void timeTick()
 {

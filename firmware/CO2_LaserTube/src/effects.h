@@ -1,5 +1,4 @@
 #include <Global.h>
-#include <Settings.h>
 #include <FastLED.h>
 #include <utility.h>
 

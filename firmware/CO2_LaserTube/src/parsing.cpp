@@ -1,18 +1,8 @@
-#include "timer2Minim.h"
-#include <FastLED.h>
-#include <ESP8266WiFi.h>
-#include <DNSServer.h>
-#include <ESP8266WebServer.h>
-#include <WiFiManager.h>
-#include <WiFiUdp.h>
-#include <EEPROM.h>
-#include <NTPClient.h>
-//#include <GyverButton.h>
-#include "fonts.h"
-#include <Settings.h>
-#include <Global.h>
-#include <EepromExt.h>
-#include <effectTicker.h>
+#include <parsing.h>
+
+String inputBuffer;
+char packetBuffer[UDP_TX_PACKET_MAX_SIZE + 1]; //buffer to hold incoming packet
+boolean sendSettings_flag = false;
 
 void sendCurrent();
 void sendAlarms();
@@ -25,7 +15,8 @@ void parseUDP()
     int n = Udp.read(packetBuffer, UDP_TX_PACKET_MAX_SIZE);
     packetBuffer[n] = 0;
     inputBuffer = packetBuffer;
-
+    Serial.print("new command");
+    Serial.print(inputBuffer);
     if (inputBuffer.startsWith("DEB"))
     {
       if (sendSettings_flag)

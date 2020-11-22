@@ -11,7 +11,7 @@
 #include "fonts.h"
 #include <Settings.h>
 #include <Global.h>
-#include <eeprom.h>
+#include <EepromExt.h>
 #include <effectTicker.h>
 
 void parseUDP();

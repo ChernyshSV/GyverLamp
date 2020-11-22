@@ -1,10 +1,4 @@
-#include <Global.h>
-#include <Settings.h>
-#include <FastLED.h>
-#include <utility.h>
-#include <pgmspace.h>
-#include <Arduino.h>
-#include <fonts.h>
+#include <runningText.h>
 // работа с бегущим текстом
 
 // **************** НАСТРОЙКИ ****************

@@ -1,7 +1,4 @@
-#include <Global.h>
-#include <Settings.h>
-#include <FastLED.h>
-#include <utility.h>
+#include <effects.h>
 
 void fadePixel(unsigned char i, unsigned char j, unsigned char step);
 void fader(unsigned char step);

@@ -1,8 +1,4 @@
 #include <FastLED.h>
-#include <Settings.h>
-#include <Global.h>
-#include <FastLED.h>
-#include <Settings.h>
 #include <Global.h>
 
 unsigned int getPixColorXY(signed char x, signed char y);

@@ -1,5 +1,4 @@
-#include "EEPROM.h"
-#include <Global.h>
+#include <EepromExt.h>
 
 void saveEEPROM()
 {

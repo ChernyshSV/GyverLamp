@@ -1,6 +1,6 @@
-#include <FastLED.h>
-#include <Settings.h>
-#include <Global.h>
+#include <utility.h>
+
+#define SEGMENTS 1            // диодов в одном "пикселе" (для создания матрицы из кусков ленты)
 // служебные функции
 uint16_t getPixelNumber(signed char, signed char);
 // залить все

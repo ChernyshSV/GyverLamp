@@ -47,7 +47,6 @@
 #include <WiFiUdp.h>
 #include <EEPROM.h>
 #include <NTPClient.h>
-//#include <GyverButton.h>
 #include "fonts.h"
 #include <Settings.h>
 #include <Global.h>
@@ -55,24 +54,54 @@
 #include <EepromExt.h>
 #include <parsing.h>
 #include <time.h>
-//GButton touch(BTN_PIN, LOW_PULL, NORM_OPEN);
+
+#define FASTLED_INTERRUPT_RETRY_COUNT 0
+#define FASTLED_ALLOW_INTERRUPTS 0
+#define FASTLED_ESP8266_RAW_PIN_ORDER
+
+// ----- AP (точка доступа) -------
+#define AP_SSID "GyverLamp"
+#define AP_PASS "12345678"
+#define AP_PORT 8888
+
+// -------- Менеджер WiFi ---------
+#define AC_SSID "AutoConnectAP"
+#define AC_PASS "12345678"
+
+#define CURRENT_LIMIT 2000 // лимит по току в миллиамперах, автоматически управляет яркостью (пожалей свой блок питания!) 0 - выключить лимит
+#define COLOR_ORDER GRB    // порядок цветов на ленте. Если цвет отображается некорректно - меняйте. Начать можно с RGB
+
+#define LED_PIN 4 // пин ленты
+
+WiFiServer server(80);
+
+const char *autoConnectSSID = AC_SSID;
+const char *autoConnectPass = AC_PASS;
+const char AP_NameChar[] = AP_SSID;
+const char WiFiPassword[] = AP_PASS;
+unsigned int localPort = AP_PORT;
+
+unsigned char IP_AP[] = {192, 168, 4, 66};   // статический IP точки доступа (менять только последнюю цифру)
+String lampIP = "";
+
+CRGBPalette16 gPal;
 
 void setup()
 {
   ESP.wdtDisable();
-  //ESP.wdtEnable(WDTO_8S);
   Serial.begin(9600);
   // ЛЕНТА
-  FastLED.addLeds<WS2812B, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS) /*.setCorrection( TypicalLEDStrip )*/;
+  FastLED.addLeds<WS2811, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   FastLED.setBrightness(BRIGHTNESS);
+
+  // This first palette is the basic 'black body radiation' colors,
+  // which run from black to red to bright yellow to white.
+  gPal = HeatColors_p;
+
   if (CURRENT_LIMIT > 0)
     FastLED.setMaxPowerInVoltsAndMilliamps(5, CURRENT_LIMIT);
   FastLED.show();
 
-  //touch.setStepTimeout(100);
-  //touch.setClickTimeout(500);
-
-  Serial.begin(115200);
   Serial.println();
   delay(1000);
 
@@ -97,15 +126,8 @@ void setup()
     WiFiManager wifiManager;
     wifiManager.setDebugOutput(false);
 
-#if (USE_BUTTON == 1)
-    if (digitalRead(BTN_PIN))
-      wifiManager.resetSettings();
-#endif
-
     wifiManager.autoConnect(autoConnectSSID, autoConnectPass);
-    /*WiFi.config(IPAddress(IP_STA[0], IP_STA[1], IP_STA[2], IP_STA[3]),
-                IPAddress(192, 168, 1, 1),
-                IPAddress(255, 255, 255, 0));*/
+
     Serial.print("Connected! IP address: ");
     Serial.println(WiFi.localIP());
     lampIP = WiFi.localIP().toString();
@@ -156,22 +178,7 @@ void setup()
 
   randomSeed(micros());
 
-  // получаем время
-  unsigned char count = 0;
-  while (count < 5)
-  {
-    if (timeClient.update())
-    {
-      hrs = timeClient.getHours();
-      mins = timeClient.getMinutes();
-      secs = timeClient.getSeconds();
-      days = timeClient.getDay();
-      break;
-    }
-    count++;
-    delay(500);
-  }
-  updTime();
+  void SetTime();
 }
 
 void loop()
@@ -180,9 +187,7 @@ void loop()
   effectsTick();
   eepromTick();
   timeTick();
-#if (USE_BUTTON == 1)
-  buttonTick();
-#endif
+
   ESP.wdtFeed(); // пнуть собаку
   yield();       // ещё раз пнуть собаку
 }
