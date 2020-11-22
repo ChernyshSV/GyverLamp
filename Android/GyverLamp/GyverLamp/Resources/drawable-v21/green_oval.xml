@@ -1,0 +1,14 @@
+﻿<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+  <item android:state_pressed="true">
+    <shape android:shape="oval">
+      <solid android:color="@color/btn_green_main_color" />
+    </shape>
+  </item>
+  <item>
+    <shape android:shape="oval">
+      <gradient android:startColor="@color/btn_green_a_color"
+                android:endColor="@color/btn_green_b_color">
+      </gradient>
+    </shape>
+  </item>
+</selector>

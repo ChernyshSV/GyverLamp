@@ -1,0 +1,39 @@
+<resources>
+  <string name="app_name">GyverLamp</string>
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+  <string name="action_settings">Settings</string>
+  <string name="settings_end_point_port">Port</string>
+  <string name="settings_end_point_address">Address</string>
+  <string name="speed">Speed</string>
+  <string name="brightness">Brightness</string>
+  <plurals name="numberOfbrightness">
+    <item quantity="one">Brightness %d percent</item>
+    <item quantity="other">Brightness %d percent</item>
+  </plurals>
+  <string name="menu_home">Home</string>
+  <string name="menu_alarm">Alarm</string>
+  <string name="menu_settings">Settings</string>
+
+  <!--effects-->
+  <string-array name="effects">
+    <item>sparklesRoutine</item>
+    <item>fireRoutine</item>
+    <item>rainbowVertical</item>
+    <item>rainbowHorizontal</item>
+    <item>colorsRoutine</item>
+    <item> madnessNoise</item>
+    <item>cloudNoise</item>
+    <item>lavaNoise</item>
+    <item>plasmaNoise</item>
+    <item>rainbowNoise</item>
+    <item>rainbowStripeNoise</item>
+    <item>zebraNoise</item>
+    <item>forestNoise</item>
+    <item>oceanNoise</item>
+    <item>colorRoutine</item>
+    <item>snowRoutine</item>
+    <item>matrixRoutine</item>
+    <item>lightersRoutine</item>
+  </string-array>
+</resources>

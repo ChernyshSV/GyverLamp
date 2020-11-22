@@ -40,10 +40,10 @@
 
 // ============= НАСТРОЙКИ =============
 // -------- КНОПКА -------
-#define USE_BUTTON 1    // 1 - использовать кнопку, 0 - нет
+#define USE_BUTTON 0    // 1 - использовать кнопку, 0 - нет
 
 // -------- ВРЕМЯ -------
-#define GMT 3              // смещение (москва 3)
+#define GMT 2              // смещение (москва 3)
 #define NTP_ADDRESS  "europe.pool.ntp.org"    // сервер времени
 
 // -------- РАССВЕТ -------
@@ -54,8 +54,8 @@
 #define BRIGHTNESS 40         // стандартная маскимальная яркость (0-255)
 #define CURRENT_LIMIT 2000    // лимит по току в миллиамперах, автоматически управляет яркостью (пожалей свой блок питания!) 0 - выключить лимит
 
-#define WIDTH 16              // ширина матрицы
-#define HEIGHT 16             // высота матрицы
+#define WIDTH 9              // ширина матрицы
+#define HEIGHT 9             // высота матрицы
 
 #define COLOR_ORDER GRB       // порядок цветов на ленте. Если цвет отображается некорректно - меняйте. Начать можно с RGB
 
@@ -160,7 +160,7 @@ String timeStr = "00:00";
 void setup() {
   ESP.wdtDisable();
   //ESP.wdtEnable(WDTO_8S);
-
+  Serial.begin(9600); 
   // ЛЕНТА
   FastLED.addLeds<WS2812B, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS)/*.setCorrection( TypicalLEDStrip )*/;
   FastLED.setBrightness(BRIGHTNESS);

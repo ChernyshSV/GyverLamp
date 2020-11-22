@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#2c3e50</color>
+  <color name="colorPrimaryDark">#1B3147</color>
+  <color name="colorAccent">#3498db</color>
+  <color name="holo_red_dark">#cc0000</color>
+  <color name="holo_green_dark">#669900</color>
+  <!--green btn colors-->
+  <color name="btn_green_main_color">#7CE700</color>
+  <color name="btn_green_a_color">#00BF32</color>
+  <color name="btn_green_b_color">#248F40</color>
+</resources>

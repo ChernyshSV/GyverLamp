@@ -1,0 +1,22 @@
+#include <Global.h>
+#include <FastLED.h>
+#include <utility.h>
+
+void sparklesRoutine();
+void fireRoutine();
+void rainbowVertical();
+void rainbowHorizontal();
+void colorsRoutine();
+void madnessNoise();
+void cloudNoise();
+void lavaNoise();
+void plasmaNoise();
+void rainbowNoise();
+void rainbowStripeNoise();
+void zebraNoise();
+void forestNoise();
+void oceanNoise();
+void colorRoutine();
+void snowRoutine();
+void matrixRoutine();
+void lightersRoutine();
